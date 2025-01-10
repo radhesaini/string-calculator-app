@@ -23,11 +23,4 @@ class StringCalculator {
   }
 }
 
-const obj = new StringCalculator();
-try {
-  console.log(obj.add("//;\n1;2"));
-} catch (err) {
-  console.log(err);
-}
-
 module.exports = StringCalculator;
