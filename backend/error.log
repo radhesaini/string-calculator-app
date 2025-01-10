@@ -1,0 +1,45 @@
+ERROR:root:An error occurred: exceptions must derive from BaseException
+ERROR:root:An error occurred: negative numbers not allowed -2
+negative numbers not allowed -4
+ERROR:root:An error occurred: negative numbers not allowed --2
+negative numbers not allowed --4
+ERROR:root:An error occurred: negative numbers not allowed -2
+negative numbers not allowed -4
+ERROR:root:An error occurred: negative numbers not allowed- -2
+negative numbers not allowed- -4
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -7
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
+negative numbers not allowed - -8
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
+negative numbers not allowed - -8
+ERROR:root:An error occurred: negative numbers not allowed - -2<br />negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2/
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2\/nnegative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2\nnegative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2\nnegative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2	
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2	
+negative numbers not allowed - -4	
+negative numbers not allowed - -7
+ERROR:root:An error occurred: negative numbers not allowed - -2	
+negative numbers not allowed - -4	
+negative numbers not allowed - -7
+ERROR:root:An error occurred: negative numbers not allowed - -2 
+negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2 
+negative numbers not allowed - -4 
+negative numbers not allowed - -7
+ERROR:root:An error occurred: negative numbers not allowed - -2
+negative numbers not allowed - -4
