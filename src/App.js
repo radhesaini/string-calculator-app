@@ -87,6 +87,22 @@ function App() {
                     </p>
                   </div>
                 )}
+
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Examples:</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {examples.map((example, index) => (
+                      <button
+                        data-testid={`example-${index}`}
+                        key={index}
+                        onClick={() => setInput(example.value)}
+                        className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded"
+                      >
+                        {example.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
