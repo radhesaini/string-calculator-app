@@ -43,3 +43,4 @@ negative numbers not allowed - -4
 negative numbers not allowed - -7
 ERROR:root:An error occurred: negative numbers not allowed - -2
 negative numbers not allowed - -4
+ERROR:root:An error occurred: negative numbers not allowed - -2,-4
