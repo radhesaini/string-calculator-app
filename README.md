@@ -22,3 +22,5 @@ it's react based string calculator in which we have used react.js as front End a
 7. for run test use command npm run test at same location
 
 8. for backend test run pytest test_main.py
+
+9. npx jest stringCalculator.test.js for test js solution
