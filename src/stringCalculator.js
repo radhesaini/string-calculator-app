@@ -47,7 +47,8 @@ class StringCalculator {
         }
       });
       if (negative_result.length) {
-        throw new Error(`negative numbers not allowed ${negative_result}`);
+        throw new Error(`negative numbers not allowed - ${negative_result}`)
+          .message;
       }
     } catch (err) {
       throw err;

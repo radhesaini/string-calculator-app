@@ -1,9 +1,15 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import App from "./App";
-
+import StringCalculator from "./stringCalculator";
 jest.mock("axios");
-
+jest.mock("./stringCalculator", () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      add: jest.fn(),
+    };
+  });
+});
 describe("App", () => {
   test("renders calculator form", () => {
     render(<App />);
@@ -25,6 +31,7 @@ describe("App", () => {
 
   test("handles successful calculation", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 6 } });
+    StringCalculator.mockReturnValueOnce({ add: jest.fn().mockReturnValue(6) });
 
     render(<App />);
     const input = screen.getByTestId("input");
@@ -39,6 +46,12 @@ describe("App", () => {
   });
 
   test("handles calculation error", async () => {
+    StringCalculator.mockReturnValueOnce({
+      add: jest.fn().mockImplementation(() => {
+        throw new Error("negative numbers not allowed - -1");
+      }),
+    });
+
     axios.post.mockRejectedValueOnce({
       response: { data: { detail: "negative numbers not allowed - -1" } },
     });
@@ -57,6 +70,11 @@ describe("App", () => {
     });
   });
   test("handles calculation error 2", async () => {
+    StringCalculator.mockReturnValueOnce({
+      add: jest.fn().mockImplementation(() => {
+        throw new Error("negative numbers not allowed - -1");
+      }),
+    });
     axios.post.mockRejectedValueOnce({
       response: { data: { detail: "negative numbers not allowed - -1" } },
     });
@@ -75,6 +93,7 @@ describe("App", () => {
   });
   test("Ignore numbers greater than 1000", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 3 } });
+    StringCalculator.mockReturnValueOnce({ add: jest.fn().mockReturnValue(3) });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: "1,2,1001" } });
@@ -89,6 +108,9 @@ describe("App", () => {
 
   test("check for sum greater than 1000", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 1001 } });
+    StringCalculator.mockReturnValueOnce({
+      add: jest.fn().mockReturnValue(1001),
+    });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: "1000,1" } });
@@ -102,6 +124,7 @@ describe("App", () => {
   });
   test("check for Consecutive delimiters", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 3 } });
+    StringCalculator.mockReturnValueOnce({ add: jest.fn().mockReturnValue(3) });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: "1,,2" } });
@@ -116,6 +139,7 @@ describe("App", () => {
 
   test("check for Trailing delimiters", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 1 } });
+    StringCalculator.mockReturnValueOnce({ add: jest.fn().mockReturnValue(1) });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: "1,." } });
@@ -129,6 +153,9 @@ describe("App", () => {
   });
   test("check for Leading delimiters", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 18 } });
+    StringCalculator.mockReturnValueOnce({
+      add: jest.fn().mockReturnValue(18),
+    });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: ",.18" } });
@@ -142,6 +169,9 @@ describe("App", () => {
   });
   test("check for Leading and Trailing delimiters", async () => {
     axios.post.mockResolvedValueOnce({ data: { result: 10 } });
+    StringCalculator.mockReturnValueOnce({
+      add: jest.fn().mockReturnValue(10),
+    });
     render(<App />);
     const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: ",./10\n" } });

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+// import StringCalculator from "./stringCalculator";
 
 function App() {
   const [input, setInput] = useState("");
@@ -10,13 +11,17 @@ function App() {
     setError("");
     try {
       setResult("");
+      // const calculator = new StringCalculator();
       const response = await axios.post("http://localhost:8000/calculate", {
         numbers: input,
       });
       setResult(response.data.result);
+      // const response = calculator.add(input);
+      // setResult(response);
       setError("");
     } catch (err) {
       setError(err.response?.data?.detail || "An error occurred");
+      // setError(err.message || "An error occurred");
       setResult("");
     }
   };
@@ -83,7 +88,7 @@ function App() {
                 {error && (
                   <div className="mt-4 p-4 bg-red-100 rounded">
                     <p className="text-red-700" data-testid="error">
-                      Error: {error}
+                      {"Error: " + error}
                     </p>
                   </div>
                 )}
