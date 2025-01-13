@@ -27,7 +27,7 @@ describe("App", () => {
     axios.post.mockResolvedValueOnce({ data: { result: 6 } });
 
     render(<App />);
-    const input = screen.getByPlaceholderText(/Enter numbers/);
+    const input = screen.getByTestId("input");
     fireEvent.change(input, { target: { value: "1,2,3" } });
 
     const button = screen.getByTestId("calculate-btn");
@@ -71,6 +71,85 @@ describe("App", () => {
       expect(
         screen.getByText("Error: negative numbers not allowed - -1")
       ).toBeDefined();
+    });
+  });
+  test("Ignore numbers greater than 1000", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 3 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: "1,2,1001" } });
+
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 3");
+    });
+  });
+
+  test("check for sum greater than 1000", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 1001 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: "1000,1" } });
+
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 1001");
+    });
+  });
+  test("check for Consecutive delimiters", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 3 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: "1,,2" } });
+
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 3");
+    });
+  });
+
+  test("check for Trailing delimiters", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 1 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: "1,." } });
+
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 1");
+    });
+  });
+  test("check for Leading delimiters", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 18 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: ",.18" } });
+
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 18");
+    });
+  });
+  test("check for Leading and Trailing delimiters", async () => {
+    axios.post.mockResolvedValueOnce({ data: { result: 10 } });
+    render(<App />);
+    const input = screen.getByTestId("input");
+    fireEvent.change(input, { target: { value: ",./10\n" } });
+    const button = screen.getByTestId("calculate-btn");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("result")).toHaveTextContent("Result: 10");
     });
   });
 });
