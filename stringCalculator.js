@@ -1,9 +1,37 @@
+/**
+ * StringCalculator class for adding numbers from a string.
+ *
+ * This class provides a single method, `add()`, which takes a string of numbers
+ * (potentially separated by various delimiters) and returns their sum.
+ *
+ * @class StringCalculator
+ */
 class StringCalculator {
+  /**
+   * Adds numbers from a given string.
+   *
+   * Handles various scenarios:
+   *   - Empty string: Returns 0.
+   *   - Single number: Returns the number.
+   *   - Multiple numbers separated by commas or newlines: Returns the sum.
+   *   - Custom delimiters: Supports custom delimiters defined at the beginning
+   *     of the string in the format "//delimiter\n".
+   *   - Negative numbers: Throws an error if any negative numbers are found.
+   *   - Numbers greater than 1000: Ignores numbers greater than 1000.
+   *
+   * @param {string} numString - The string containing numbers to be added.
+   * @returns {number} - The sum of the numbers.
+   * @throws {Error} - Throws an error if negative numbers are found.
+   */
   add(num_string) {
     if (!num_string) {
       return 0;
+    } else if (typeof num_string != "string") {
+      throw new Error("Provided input are not in string");
     }
+    // regex of all possible delimiters
     let delimiters_regex = /[!@#$%^&*()_+={}|\[\]:;<>,.?/~\n` ]/;
+    // Split numbers by delimiters
     let numbers = num_string.split(delimiters_regex);
     let result = 0;
     let negative_result = [];
@@ -23,4 +51,4 @@ class StringCalculator {
   }
 }
 
-module.exports = StringCalculator;
+module.exports = StringCalculator; // For Node.js or react.js uses we  have exported
