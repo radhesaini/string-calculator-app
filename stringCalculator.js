@@ -26,27 +26,33 @@ class StringCalculator {
   add(num_string) {
     if (!num_string) {
       return 0;
-    } else if (typeof num_string != "string") {
-      throw new Error("Provided input are not in string");
+    } //check given input is string or not
+    else if (typeof num_string != "string") {
+      throw new Error("Invalid user input!");
     }
-    // regex of all possible delimiters
-    let delimiters_regex = /[!@#$%^&*()_+={}|\[\]:;<>,.?/~\n` ]/;
-    // Split numbers by delimiters
-    let numbers = num_string.split(delimiters_regex);
     let result = 0;
-    let negative_result = [];
-    numbers.forEach((item) => {
-      if (item < 0) {
-        negative_result.push(item);
+    try {
+      // regex of all possible delimiters
+      let delimiters_regex = /[!@#$%^&*()_+={}|\[\]:;<>,.?/~\n` ]/;
+      // Split numbers by delimiters
+      let numbers = num_string.split(delimiters_regex);
+      let negative_result = [];
+      numbers.forEach((item) => {
+        if (item < 0) {
+          negative_result.push(item);
+        }
+        //item > 0 check "", " " and string
+        else if (item > 0 && !negative_result.length && item <= 1000) {
+          result += parseInt(item, 0);
+        }
+      });
+      if (negative_result.length) {
+        throw new Error(`negative numbers not allowed ${negative_result}`);
       }
-      //item > 0 check "", " " and string
-      else if (item > 0 && !negative_result.length && item <= 1000) {
-        result += parseInt(item, 0);
-      }
-    });
-    if (negative_result.length) {
-      throw new Error(`negative numbers not allowed ${negative_result}`);
+    } catch (err) {
+      throw err;
     }
+
     return result;
   }
 }
